@@ -36,7 +36,7 @@ class ResNet(tf.keras.Model):
         if num_classes > 2:
             self.classifier = tf.keras.layers.Dense(num_classes,activation ='softmax')
         else:
-            self.classifier = tf.keras.layers.Dense(num_classes,activation ='sigmoid')
+            self.classifier = tf.keras.layers.Dense(1,activation ='sigmoid')
 
     def call(self,inputs):
         x=self.conv(inputs)

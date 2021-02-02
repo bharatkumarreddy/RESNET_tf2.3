@@ -12,7 +12,7 @@ def preprocess(dataset):
     image=tf.image.resize(dataset['image'],(224,224))
     image=tf.cast(image,tf.float32)/255.
     label=dataset['label']
-    return image,label
+    return image,[label]
 
 train = train.map(preprocess).batch(64)
 train = train.prefetch(tf.data.experimental.AUTOTUNE)
@@ -20,5 +20,5 @@ test = test.map(preprocess).batch(64)
 test = test.prefetch(tf.data.experimental.AUTOTUNE)
 
 resnet = ResNet50(2)
-resnet.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+resnet.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 resnet.fit(train,validation_data = test,epochs=100)

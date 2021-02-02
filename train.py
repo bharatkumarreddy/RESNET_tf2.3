@@ -1,4 +1,5 @@
-import tensorflow_dataset as tfds
+import tensorflow_datasets as tfds
+import tensorflow as tf
 
 from .Models import ResNet50
 
@@ -19,5 +20,5 @@ test = test.map(preprocess).batch(64)
 test = test.prefetch(tf.data.experimental.AUTOTUNE)
 
 resnet = ResNet50(2)
-
-ResNet50.fit(train,validation_data = test,epochs=100)
+resnet.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+resnet.fit(train,validation_data = test,epochs=100)

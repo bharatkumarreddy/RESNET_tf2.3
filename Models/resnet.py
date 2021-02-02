@@ -33,10 +33,7 @@ class ResNet(tf.keras.Model):
             self.resd = Res_Block2(512,d)
 
         self.global_pool = tf.keras.layers.GlobalAveragePooling2D()
-        if num_classes > 2:
-            self.classifier = tf.keras.layers.Dense(num_classes,activation ='softmax')
-        else:
-            self.classifier = tf.keras.layers.Dense(num_classes,activation ='sigmoid')
+        self.classifier = tf.keras.layers.Dense(num_classes,activation ='softmax')
 
     def call(self,inputs):
         x=self.conv(inputs)
